@@ -106,17 +106,18 @@ console.log("Made by BF8 if you need help join discord: https://discord.gg/xkdYy
             }
             const response2 = await prompts([
                 {
-                  type: 'select',
+                  type: 'text',
                   name: 'data',
-                  message: 'Pick a Set',
-                  choices: choices
+                  message: 'please enter the set name',
                 }
               ]);
-              request(`https://fortniteapi.io/v2/items/list?set.id=${response2.data}`,{'headers': {'Authorization': apiKey}},
+              request(`https://fortniteapi.io/v2/items/list?set.name=${response2.data}`,{'headers': {'Authorization': apiKey}},
              async function (error, response2) {
             var data2 = JSON.parse(response2.body)
+                if(data2.pages === 0){
+                    console.log("please enter correct name".red)
 
-                
+                }else{
                     for (const item of data2['items']) {
                         if(item.type.id === "bundle" || item.type.id === "battlebus" || item.type.id === "bannertoken" || item.type.id === "cosmeticvariant"){
                 
@@ -174,6 +175,8 @@ console.log("Made by BF8 if you need help join discord: https://discord.gg/xkdYy
                     }
                     fs.writeFileSync("./profile_athena.json", JSON.stringify(athena, null, 2));
                     console.log("profile athena is done!".green)
+                }
+                    
                     
 
 
